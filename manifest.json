@@ -1,0 +1,28 @@
+{
+  "name": "همیار دانش‌آموز — ماضی و مضارع",
+  "short_name": "همیار دانش‌آموز",
+  "description": "اپلیکیشن آموزشی ماضی و مضارع عربی برای دانش‌آموزان — با درس، تمرین، آزمون، بازی و تلفظ صوتی",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "lang": "fa",
+  "dir": "rtl",
+  "categories": ["education", "learning"],
+  "icons": [
+    {
+      "src": "closed-book.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "closed-book.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
