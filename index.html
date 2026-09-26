@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>همیار دانش‌آموز | ماضی و مضارع</title>
+<link rel="manifest" href="manifest.json">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #1e293b;
+        --text-light: #64748b;
+        --border: #e2e8f0;
+    }
+
+    body {
+        font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.7;
+        direction: rtl;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 16px; }
+
+    .header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .header h1 { font-size: 24px; margin-bottom: 5px; }
+    .header p { opacity: 0.9; font-size: 14px; }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .menu-card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 20px 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 2px solid var(--border);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .menu-card:hover, .menu-card:active {
+        transform: translateY(-3px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+    }
+
+    .menu-card .icon { font-size: 36px; display: block; margin-bottom: 8px; }
+    .menu-card .title { font-weight: 700; font-size: 16px; color: var(--text); }
+    .menu-card .desc { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+    .section { display: none; animation: fadeIn 0.3s; }
+    .section.active { display: block; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .section-header h2 { font-size: 20px; color: var(--primary-dark); }
+
+    .back-btn {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--text);
+        transition: 0.2s;
+    }
+
+    .back-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .lesson-tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 16px;
+        background: var(--card);
+        padding: 6px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .lesson-tabs::-webkit-scrollbar { display: none; }
+
+    .lesson-tab {
+        flex: 1;
+        padding: 10px 8px;
+        border: none;
+        background: transparent;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-light);
+        transition: 0.2s;
+        white-space: nowrap;
+        min-width: 90px;
+    }
+
+    .lesson-tab.active {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .lesson-content {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        margin-bottom: 16px;
+    }
+
+    .lesson-content h3 {
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+        font-size: 18px;
+        border-right: 4px solid var(--primary);
+        padding-right: 10px;
+    }
+
+    .lesson-content h4 {
+        color: var(--primary-dark);
+        margin: 16px 0 8px;
+        font-size: 16px;
+    }
+
+    .lesson-content p { margin-bottom: 12px; font-size: 15px; color: var(--text); }
+
+    .lesson-content ol, .lesson-content ul { padding-right: 22px; margin-bottom: 12px; }
+    .lesson-content li { margin-bottom: 6px; font-size: 15px; }
+
+    .arabic {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        direction: rtl;
+        display: inline-block;
+        padding: 2px 8px;
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 6px;
+        margin: 0 3px;
+    }
+
+    .arabic-big {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        direction: rtl;
+        display: inline-block;
+        padding: 8px 18px;
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 10px;
+        margin: 6px 0;
+    }
+
+    .example-box {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
+        border-right: 4px solid var(--primary);
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin: 12px 0;
+    }
+
+    .example-box strong { color: var(--primary-dark); }
+
+    .step-box {
+        background: rgba(99, 102, 241, 0.05);
+        border: 1px dashed var(--primary);
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin: 12px 0;
+    }
+
+    .step-box .step-num {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        background: var(--primary);
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 28px;
+        font-weight: 700;
+        font-size: 14px;
+        margin-left: 8px;
+    }
+
+    .step-box .step-title { font-weight: 700; color: var(--primary-dark); font-size: 15px; }
+    .step-box .step-desc { font-size: 14px; color: var(--text-light); margin-top: 6px; }
+
+    .sarf-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        background: var(--card);
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 14px;
+    }
+
+    .sarf-table th { background: var(--primary); color: white; padding: 10px; text-align: right; }
+    .sarf-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+    .sarf-table tr:last-child td { border-bottom: none; }
+    .sarf-table tr:nth-child(even) { background: rgba(99, 102, 241, 0.03); }
+    .sarf-table .ar { font-size: 18px; font-weight: 700; color: var(--primary-dark); }
+
+    .highlight-box {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border-right: 4px solid var(--warning);
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin: 12px 0;
+        font-size: 14px;
+    }
+
+    /* ===== بخش تعاملی صرف ===== */
+    .pronoun-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .pronoun-btn {
+        background: var(--bg);
+        border: 2px solid var(--border);
+        padding: 12px 6px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        transition: 0.2s;
+        text-align: center;
+    }
+
+    .pronoun-btn:hover {
+        border-color: var(--primary);
+        background: rgba(99, 102, 241, 0.05);
+    }
+
+    .pronoun-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .interactive-verb {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
+        border: 2px dashed var(--primary);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        margin: 16px 0;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .interactive-verb .label {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-bottom: 6px;
+    }
+
+    .interactive-verb .verb {
+        font-size: 36px;
+        font-weight: 900;
+        color: var(--primary-dark);
+        margin: 8px 0;
+        transition: 0.3s;
+    }
+
+    .interactive-verb .meaning {
+        font-size: 15px;
+        color: var(--text-light);
+    }
+
+    .interactive-verb .pronoun-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 4px;
+    }
+
+    @keyframes popIn {
+        0% { transform: scale(0.9); opacity: 0.5; }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .interactive-verb .verb.animate {
+        animation: popIn 0.3s ease;
+    }
+
+    /* ===== ابزار فعل‌ساز ===== */
+    .builder-box {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 20px;
+        border: 2px solid var(--primary);
+        margin-bottom: 16px;
+    }
+
+    .builder-box h3 {
+        color: var(--primary-dark);
+        margin-bottom: 15px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .builder-input {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+        direction: ltr;
+        flex-direction: row;
+    }
+
+    .builder-input input {
+        flex: 1;
+        padding: 14px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 22px;
+        text-align: center;
+        direction: rtl;
+        color: var(--primary-dark);
+        font-weight: 700;
+        outline: none;
+        background: var(--bg);
+    }
+
+    .builder-input input:focus { border-color: var(--primary); }
+
+    .builder-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .builder-btn:hover { background: var(--primary-dark); }
+
+    .builder-result { margin-top: 16px; display: none; }
+    .builder-result.show { display: block; }
+
+    .builder-verb {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.02));
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .builder-verb .label { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+    .builder-verb .verb { font-size: 28px; font-weight: 900; color: var(--primary-dark); }
+    .builder-verb .meaning { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+
+    /* ===== تمرین ===== */
+    .question-box {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 24px 20px;
+        border: 1px solid var(--border);
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .question-counter { color: var(--text-light); font-size: 13px; margin-bottom: 10px; }
+    .question-text { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px; line-height: 1.8; }
+
+    .options { display: flex; flex-direction: column; gap: 10px; }
+
+    .option {
+        background: var(--bg);
+        border: 2px solid var(--border);
+        padding: 14px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+        text-align: right;
+        transition: 0.2s;
+        color: var(--text);
+    }
+
+    .option:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+    .option.correct { background: rgba(16, 185, 129, 0.1); border-color: var(--success); color: var(--success); font-weight: 700; }
+    .option.wrong { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger); font-weight: 700; }
+    .option:disabled { cursor: not-allowed; }
+
+    .feedback { margin-top: 16px; padding: 12px; border-radius: 10px; font-weight: 600; display: none; }
+    .feedback.show { display: block; }
+    .feedback.correct { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .feedback.wrong { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+    .next-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 16px;
+        transition: 0.2s;
+        display: none;
+    }
+
+    .next-btn.show { display: block; }
+    .next-btn:hover { background: var(--primary-dark); }
+
+    .result-box {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 40px 20px;
+        text-align: center;
+        border: 1px solid var(--border);
+    }
+
+    .result-box .emoji { font-size: 64px; margin-bottom: 10px; }
+    .result-box h3 { font-size: 24px; margin-bottom: 8px; color: var(--primary-dark); }
+    .result-box .score { font-size: 48px; font-weight: 900; color: var(--primary); margin: 15px 0; }
+    .result-box .message { color: var(--text-light); font-size: 15px; margin-bottom: 20px; }
+
+    .game-box {
+        background: var(--card);
+        border-radius: 20px;
+        padding: 24px 20px;
+        text-align: center;
+        border: 1px solid var(--border);
+    }
+
+    .game-score {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .game-score .item .num { font-size: 28px; font-weight: 900; color: var(--primary); display: block; }
+    .game-score .item .lbl { font-size: 12px; color: var(--text-light); }
+
+    .game-timer { font-size: 40px; font-weight: 900; color: var(--warning); margin-bottom: 15px; }
+    .game-timer.warning { color: var(--danger); animation: pulse 0.5s infinite; }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .game-question { font-size: 20px; font-weight: 700; margin-bottom: 20px; min-height: 60px; }
+
+    .game-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .game-btn {
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .game-btn.yes { background: var(--success); color: white; }
+    .game-btn.no { background: var(--danger); color: white; }
+    .game-btn:hover { transform: scale(1.02); }
+
+    .progress-card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        margin-bottom: 12px;
+    }
+
+    .progress-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .progress-row:last-child { border-bottom: none; }
+    .progress-row .label { color: var(--text-light); }
+    .progress-row .value { font-weight: 700; color: var(--primary-dark); }
+
+    .progress-bar-bg {
+        height: 10px;
+        background: var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        border-radius: 10px;
+        transition: width 0.5s;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 14px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        width: 100%;
+        transition: 0.2s;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4); }
+
+    @media (max-width: 400px) {
+        .menu-grid { grid-template-columns: 1fr; }
+        .header h1 { font-size: 20px; }
+        .pronoun-grid { grid-template-columns: repeat(3, 1fr); }
+        .interactive-verb .verb { font-size: 28px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📚 همیار دانش‌آموز</h1>
+        <p>آموزش ماضی و مضارع عربی</p>
+    </div>
+
+    <!-- ===== صفحه اصلی ===== -->
+    <div id="home" class="section active">
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showSection('lesson')">
+                <span class="icon">📖</span>
+                <span class="title">درس</span>
+                <span class="desc">ماضی، مضارع، ساخت</span>
+            </div>
+            <div class="menu-card" onclick="showSection('builder')">
+                <span class="icon">🛠️</span>
+                <span class="title">فعل‌ساز</span>
+                <span class="desc">صرف هر فعل</span>
+            </div>
+            <div class="menu-card" onclick="showSection('practice')">
+                <span class="icon">✍️</span>
+                <span class="title">تمرین</span>
+                <span class="desc">۲۰ سوال</span>
+            </div>
+            <div class="menu-card" onclick="showSection('test')">
+                <span class="icon">📝</span>
+                <span class="title">آزمون</span>
+                <span class="desc">۱۰ سوال با نمره</span>
+            </div>
+            <div class="menu-card" onclick="showSection('game')">
+                <span class="icon">🎮</span>
+                <span class="title">بازی</span>
+                <span class="desc">ماضی یا مضارع؟</span>
+            </div>
+            <div class="menu-card" onclick="showSection('progress')">
+                <span class="icon">📊</span>
+                <span class="title">پیشرفت من</span>
+                <span class="desc">آمار و نتایج</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== درس ===== -->
+    <div id="lesson" class="section">
+        <div class="section-header">
+            <h2>📖 درس</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div class="lesson-tabs">
+            <button class="lesson-tab active" onclick="showLessonTab('sarf-chist', this)">🔑 صرف چیست؟</button>
+            <button class="lesson-tab" onclick="showLessonTab('mazi', this)">ماضی</button>
+            <button class="lesson-tab" onclick="showLessonTab('mozare', this)">مضارع</button>
+            <button class="lesson-tab" onclick="showLessonTab('sakht-mazi', this)">🔧 ساخت ماضی</button>
+            <button class="lesson-tab" onclick="showLessonTab('sakht-mozare', this)">🔧 ساخت مضارع</button>
+            <button class="lesson-tab" onclick="showLessonTab('comparison', this)">مقایسه</button>
+        </div>
+
+        <!-- ===== صرف چیست؟ ===== -->
+        <div id="sarf-chist" class="lesson-content">
+            <h3>🔑 صرف چیست؟</h3>
+
+            <p><strong>صرف</strong> یعنی <strong>تغییر شکل فعل بر اساس ضمیر</strong> (فاعل).</p>
+
+            <p>یعنی وقتی فاعل (انجام‌دهنده) عوض می‌شود، شکل فعل هم عوض می‌شود.</p>
+
+            <h4>📝 مثال در فارسی:</h4>
+            <div class="example-box">
+                من <strong>می‌نویسم</strong><br>
+                تو <strong>می‌نویسی</strong><br>
+                او <strong>می‌نویسد</strong><br>
+                ما <strong>می‌نویسیم</strong><br>
+                شما <strong>می‌نویسید</strong><br>
+                آنها <strong>می‌نویسند</strong>
+            </div>
+
+            <p>در فارسی، ریشه «نویس» ثابت می‌ماند، ولی <strong>پسوندها</strong> عوض می‌شوند. این یعنی صرف.</p>
+
+            <h4>📝 مثال در عربی:</h4>
+            <div class="example-box">
+                <strong>ریشه فعل:</strong> <span class="arabic">ک ت ب</span> (نوشتن)<br><br>
+                <span class="arabic">كَتَبَ</span> = او نوشت<br>
+                <span class="arabic">كَتَبَتْ</span> = او (مؤنث) نوشت<br>
+                <span class="arabic">كَتَبْتُ</span> = من نوشتم<br>
+                <span class="arabic">كَتَبُوا</span> = آنها نوشتند
+            </div>
+
+            <p>در عربی هم ریشه «ک ت ب» ثابت است، ولی <strong>پسوندها</strong> عوض می‌شوند.</p>
+
+            <h4>🎮 امتحان کن:</h4>
+            <p>روی هر ضمیر بزن تا شکل فعل را ببینی:</p>
+
+            <div class="pronoun-grid" id="pronounGrid"></div>
+
+            <div class="interactive-verb" id="interactiveVerb">
+                <div class="label">فعل برای ضمیر انتخاب‌شده</div>
+                <div class="pronoun-label" id="ivPronoun">—</div>
+                <div class="verb" id="ivVerb">—</div>
+                <div class="meaning" id="ivMeaning">یک ضمیر انتخاب کن</div>
+            </div>
+
+            <h4>💡 چرا صرف مهم است؟</h4>
+            <ul>
+                <li>بدون صرف، نمی‌توانی جمله درست بسازی</li>
+                <li>هر ضمیر، شکل مخصوص خودش را می‌خواهد</li>
+                <li>مثل «جدول ضرب» در ریاضی است — باید حفظ شود</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>⚠️ اشتباه رایج:</strong><br>
+                ❌ <span class="arabic">هُوَ كَتَبْتُ</span> (او من نوشتم) — غلط<br>
+                ✅ <span class="arabic">هُوَ كَتَبَ</span> (او نوشت) — درست
+            </div>
+
+            <div class="example-box">
+                <strong>💡 خلاصه یک‌خطی:</strong><br>
+                <strong>صرف = تغییر شکل فعل بر اساس ضمیر</strong><br>
+                یک فعل، برای هر ضمیر، یک شکل دارد.
+            </div>
+        </div>
+
+        <!-- ماضی -->
+        <div id="mazi" class="lesson-content" style="display:none;">
+            <h3>🔵 فعل ماضی (گذشته)</h3>
+            <p>فعل ماضی به کاری اشاره دارد که <strong>در گذشته انجام شده</strong>.</p>
+
+            <div class="example-box">
+                <strong>مثال:</strong> <span class="arabic">كَتَبَ</span> = نوشت
+            </div>
+
+            <p><strong>نشانه‌های ماضی:</strong></p>
+            <ul>
+                <li>قبول کردن «ت، ن، ا، و»</li>
+                <li>معمولاً بر وزن <span class="arabic">فَعَلَ</span></li>
+            </ul>
+
+            <p><strong>صرف فعل <span class="arabic">كَتَبَ</span> (نوشتن):</strong></p>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>هُوَ</td><td class="ar">كَتَبَ</td><td>او نوشت</td></tr>
+                    <tr><td>هِيَ</td><td class="ar">كَتَبَتْ</td><td>او (مؤنث) نوشت</td></tr>
+                    <tr><td>أَنْتَ</td><td class="ar">كَتَبْتَ</td><td>تو نوشتی</td></tr>
+                    <tr><td>أَنْتِ</td><td class="ar">كَتَبْتِ</td><td>تو (مؤنث) نوشتی</td></tr>
+                    <tr><td>أَنَا</td><td class="ar">كَتَبْتُ</td><td>من نوشتم</td></tr>
+                    <tr><td>نَحْنُ</td><td class="ar">كَتَبْنَا</td><td>ما نوشتیم</td></tr>
+                    <tr><td>هُمْ</td><td class="ar">كَتَبُوا</td><td>آنها نوشتند</td></tr>
+                    <tr><td>هُنَّ</td><td class="ar">كَتَبْنَ</td><td>آنها (مؤنث) نوشتند</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- مضارع -->
+        <div id="mozare" class="lesson-content" style="display:none;">
+            <h3>🟢 فعل مضارع (حال / آینده)</h3>
+            <p>فعل مضارع به کاری اشاره دارد که <strong>الان انجام می‌شود</strong> یا <strong>در آینده انجام خواهد شد</strong>.</p>
+
+            <div class="example-box">
+                <strong>مثال:</strong> <span class="arabic">يَكْتُبُ</span> = می‌نویسد / خواهد نوشت
+            </div>
+
+            <p><strong>نشانه‌های مضارع:</strong></p>
+            <ul>
+                <li>با یکی از حروف <span class="arabic">أ، ن، ت، ي</span> شروع می‌شود</li>
+                <li>معمولاً بر وزن <span class="arabic">يَفْعُلُ</span></li>
+            </ul>
+
+            <p><strong>صرف فعل <span class="arabic">يَكْتُبُ</span> (می‌نویسد):</strong></p>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>هُوَ</td><td class="ar">يَكْتُبُ</td><td>او می‌نویسد</td></tr>
+                    <tr><td>هِيَ</td><td class="ar">تَكْتُبُ</td><td>او (مؤنث) می‌نویسد</td></tr>
+                    <tr><td>أَنْتَ</td><td class="ar">تَكْتُبُ</td><td>تو می‌نویسی</td></tr>
+                    <tr><td>أَنْتِ</td><td class="ar">تَكْتُبِينَ</td><td>تو (مؤنث) می‌نویسی</td></tr>
+                    <tr><td>أَنَا</td><td class="ar">أَكْتُبُ</td><td>من می‌نویسم</td></tr>
+                    <tr><td>نَحْنُ</td><td class="ar">نَكْتُبُ</td><td>ما می‌نویسیم</td></tr>
+                    <tr><td>هُمْ</td><td class="ar">يَكْتُبُونَ</td><td>آنها می‌نویسند</td></tr>
+                    <tr><td>هُنَّ</td><td class="ar">يَكْتُبْنَ</td><td>آنها (مؤنث) می‌نویسند</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== ساخت ماضی ===== -->
+        <div id="sakht-mazi" class="lesson-content" style="display:none;">
+            <h3>🔧 روش ساخت فعل ماضی</h3>
+            <p>برای ساختن فعل ماضی، این ۴ مرحله را دنبال کن:</p>
+
+            <div class="step-box">
+                <span class="step-num">۱</span>
+                <span class="step-title">ریشه فعل را پیدا کن</span>
+                <div class="step-desc">
+                    هر فعل عربی ۳ حرف اصلی دارد:
+                    <ul style="margin-top: 6px;">
+                        <li><strong>فاء الفعل:</strong> حرف اول</li>
+                        <li><strong>عین الفعل:</strong> حرف دوم</li>
+                        <li><strong>لام الفعل:</strong> حرف سوم</li>
+                    </ul>
+                    <div class="example-box" style="margin-top: 8px;">
+                        ریشه <span class="arabic">ک ت ب</span> → فاء: <span class="arabic">ک</span>، عین: <span class="arabic">ت</span>، لام: <span class="arabic">ب</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۲</span>
+                <span class="step-title">ریشه را در قالب «فَعَلَ» بریز</span>
+                <div class="step-desc">
+                    فاء را جای «ف»، عین را جای «ع»، لام را جای «ل» بگذار:
+                    <div style="text-align: center; margin: 10px 0;">
+                        <span class="arabic-big">فَعَلَ → كَتَبَ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۳</span>
+                <span class="step-title">ساختار را بشناس</span>
+                <div class="step-desc">
+                    <ul>
+                        <li>حرف اول: <strong>مفتوح</strong> (فتحه دارد)</li>
+                        <li>حرف دوم: <strong>مفتوح</strong> (فتحه دارد)</li>
+                        <li>حرف سوم: <strong>مفتوح</strong> (فتحه دارد)</li>
+                    </ul>
+                    <div style="text-align: center; margin: 10px 0;">
+                        <span class="arabic-big">ك َ ت َ ب َ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۴</span>
+                <span class="step-title">با ضمایر صرف کن</span>
+                <div class="step-desc">
+                    حالا پسوندهای مختلف را اضافه کن:
+                </div>
+            </div>
+
+            <h4>📋 جدول پسوندهای ماضی:</h4>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ضمیر</th><th>پسوند</th><th>مثال با کَتَبَ</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>هُوَ</td><td>—</td><td class="ar">كَتَبَ</td></tr>
+                    <tr><td>هِيَ</td><td>ـتْ</td><td class="ar">كَتَبَتْ</td></tr>
+                    <tr><td>أَنْتَ</td><td>ـتَ</td><td class="ar">كَتَبْتَ</td></tr>
+                    <tr><td>أَنْتِ</td><td>ـتِ</td><td class="ar">كَتَبْتِ</td></tr>
+                    <tr><td>أَنَا</td><td>ـتُ</td><td class="ar">كَتَبْتُ</td></tr>
+                    <tr><td>نَحْنُ</td><td>ـنَا</td><td class="ar">كَتَبْنَا</td></tr>
+                    <tr><td>هُمْ</td><td>ـوا</td><td class="ar">كَتَبُوا</td></tr>
+                    <tr><td>هُنَّ</td><td>ـنَ</td><td class="ar">كَتَبْنَ</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>💡 نکته طلایی:</strong><br>
+                اگر فعل ماضی سه‌حرفی سالم باشد (مثل <span class="arabic">کَتَبَ</span>)، همه حروفش فتحه دارند.
+            </div>
+
+            <h4>🎯 مثال‌های دیگر:</h4>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ریشه</th><th>ماضی</th><th>معنی</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="ar">ذ ه ب</td><td class="ar">ذَهَبَ</td><td>رفت</td></tr>
+                    <tr><td class="ar">س م ع</td><td class="ar">سَمِعَ</td><td>شنید</td></tr>
+                    <tr><td class="ar">ق ر أ</td><td class="ar">قَرَأَ</td><td>خواند</td></tr>
+                    <tr><td class="ar">ل ع ب</td><td class="ar">لَعِبَ</td><td>بازی کرد</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== ساخت مضارع ===== -->
+        <div id="sakht-mozare" class="lesson-content" style="display:none;">
+            <h3>🔧 روش ساخت فعل مضارع</h3>
+            <p>برای ساختن فعل مضارع، این ۴ مرحله را دنبال کن:</p>
+
+            <div class="step-box">
+                <span class="step-num">۱</span>
+                <span class="step-title">از بن ماضی شروع کن</span>
+                <div class="step-desc">
+                    بن ماضی را در نظر بگیر:
+                    <div style="text-align: center; margin: 10px 0;">
+                        <span class="arabic-big">كَتَبَ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۲</span>
+                <span class="step-title">حرف مضارعه را اضافه کن</span>
+                <div class="step-desc">
+                    یکی از حروف <strong>«أ، ن، ت، ي»</strong> را به اول فعل اضافه کن:
+                    <ul style="margin-top: 6px;">
+                        <li><span class="arabic">أ</span> برای <strong>أَنَا</strong></li>
+                        <li><span class="arabic">ن</span> برای <strong>نَحْنُ</strong></li>
+                        <li><span class="arabic">ت</span> برای <strong>هِيَ، أَنْتَ، أَنْتِ</strong></li>
+                        <li><span class="arabic">ي</span> برای <strong>هُوَ، هُمْ، هُنَّ</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۳</span>
+                <span class="step-title">حرکات را تنظیم کن</span>
+                <div class="step-desc">
+                    در وزن <span class="arabic">يَفْعُلُ</span>:
+                    <ul>
+                        <li>حرف مضارعه: <strong>مفتوح</strong></li>
+                        <li>حرف اول ریشه: <strong>ساکن</strong></li>
+                        <li>حرف دوم ریشه: <strong>مضموم</strong></li>
+                        <li>حرف سوم ریشه: <strong>مضموم</strong></li>
+                    </ul>
+                    <div style="text-align: center; margin: 10px 0;">
+                        <span class="arabic-big">ي َ كْ تُ بُ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">۴</span>
+                <span class="step-title">با ضمایر صرف کن</span>
+            </div>
+
+            <h4>📋 جدول ساخت مضارع:</h4>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ضمیر</th><th>حرف مضارعه</th><th>پسوند</th><th>مثال</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>هُوَ</td><td class="ar">يـ</td><td>—</td><td class="ar">يَكْتُبُ</td></tr>
+                    <tr><td>هِيَ</td><td class="ar">تـ</td><td>—</td><td class="ar">تَكْتُبُ</td></tr>
+                    <tr><td>أَنْتَ</td><td class="ar">تـ</td><td>—</td><td class="ar">تَكْتُبُ</td></tr>
+                    <tr><td>أَنْتِ</td><td class="ar">تـ</td><td>ـينَ</td><td class="ar">تَكْتُبِينَ</td></tr>
+                    <tr><td>أَنَا</td><td class="ar">أ</td><td>—</td><td class="ar">أَكْتُبُ</td></tr>
+                    <tr><td>نَحْنُ</td><td class="ar">نـ</td><td>—</td><td class="ar">نَكْتُبُ</td></tr>
+                    <tr><td>هُمْ</td><td class="ar">يـ</td><td>ـونَ</td><td class="ar">يَكْتُبُونَ</td></tr>
+                    <tr><td>هُنَّ</td><td class="ar">يـ</td><td>ـنَ</td><td class="ar">يَكْتُبْنَ</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>💡 نکته طلایی:</strong><br>
+                <span class="arabic">كَتَبَ</span> → <span class="arabic">يَكْتُبُ</span><br>
+                فقط کافیه:<br>
+                ۱. حرف مضارعه اضافه کن<br>
+                ۲. حرف دوم را از فتحه به ضمه تغییر بده
+            </div>
+
+            <h4>🎯 مثال‌های دیگر:</h4>
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ماضی</th><th>مضارع (هُوَ)</th><th>معنی</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="ar">ذَهَبَ</td><td class="ar">يَذْهَبُ</td><td>می‌رود</td></tr>
+                    <tr><td class="ar">سَمِعَ</td><td class="ar">يَسْمَعُ</td><td>می‌شنود</td></tr>
+                    <tr><td class="ar">قَرَأَ</td><td class="ar">يَقْرَأُ</td><td>می‌خواند</td></tr>
+                    <tr><td class="ar">لَعِبَ</td><td class="ar">يَلْعَبُ</td><td>بازی می‌کند</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- مقایسه -->
+        <div id="comparison" class="lesson-content" style="display:none;">
+            <h3>⚖️ مقایسه ماضی و مضارع</h3>
+
+            <table class="sarf-table">
+                <thead>
+                    <tr><th>ویژگی</th><th>ماضی</th><th>مضارع</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>زمان</strong></td><td>گذشته</td><td>حال / آینده</td></tr>
+                    <tr><td><strong>نشانه</strong></td><td>قبول «ت، ن، ا، و»</td><td>شروع با «أ، ن، ت، ي»</td></tr>
+                    <tr><td><strong>مثال</strong></td><td class="ar">كَتَبَ</td><td class="ar">يَكْتُبُ</td></tr>
+                    <tr><td><strong>معنی</strong></td><td>نوشت</td><td>می‌نویسد</td></tr>
+                </tbody>
+            </table>
+
+            <div class="example-box" style="margin-top: 20px;">
+                <strong>💡 نکته طلایی:</strong><br>
+                برای تشخیص ماضی از مضارع، اول کلمه را نگاه کن:<br>
+                • اگر با <span class="arabic">ي، ت، أ، ن</span> شروع شود → <strong>مضارع</strong><br>
+                • اگر این حروف را نداشته باشد → <strong>ماضی</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== فعل‌ساز ===== -->
+    <div id="builder" class="section">
+        <div class="section-header">
+            <h2>🛠️ فعل‌ساز</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div class="builder-box">
+            <h3>ریشه فعل را وارد کن</h3>
+            <p style="text-align: center; color: var(--text-light); font-size: 14px; margin-bottom: 12px;">
+                سه حرف ریشه را با فاصله بنویس (مثال: ک ت ب)
+            </p>
+
+            <div class="builder-input">
+                <input type="text" id="rootInput" placeholder="مثال: ک ت ب" maxlength="20">
+            </div>
+
+            <button class="builder-btn" style="width: 100%;" onclick="buildVerb()">
+                🔨 ساخت فعل
+            </button>
+
+            <div class="builder-result" id="builderResult">
+                <div class="builder-verb">
+                    <div class="label">فعل ماضی (او)</div>
+                    <div class="verb" id="bMaziHe">—</div>
+                    <div class="meaning">گذشته</div>
+                </div>
+
+                <div class="builder-verb">
+                    <div class="label">فعل مضارع (او)</div>
+                    <div class="verb" id="bMozareHe">—</div>
+                    <div class="meaning">حال / آینده</div>
+                </div>
+
+                <h4 style="text-align: center; margin-top: 20px; color: var(--primary-dark);">صرف کامل ماضی</h4>
+                <table class="sarf-table" id="bMaziTable"></table>
+
+                <h4 style="text-align: center; margin-top: 20px; color: var(--primary-dark);">صرف کامل مضارع</h4>
+                <table class="sarf-table" id="bMozareTable"></table>
+
+                <div class="highlight-box" style="margin-top: 16px;">
+                    <strong>⚠️ توجه:</strong> این ابزار بر اساس قواعد ساده کار می‌کند.
+                    بعضی فعل‌های خاص ممکن است صرف متفاوتی داشته باشند.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== تمرین ===== -->
+    <div id="practice" class="section">
+        <div class="section-header">
+            <h2>✍️ تمرین</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div class="question-box">
+            <div class="question-counter" id="practiceCounter">سوال ۱ از ۲۰</div>
+            <div class="question-text" id="practiceQuestion">...</div>
+            <div class="options" id="practiceOptions"></div>
+            <div class="feedback" id="practiceFeedback"></div>
+            <button class="next-btn" id="practiceNext" onclick="nextPractice()">سوال بعدی ←</button>
+        </div>
+    </div>
+
+    <!-- ===== آزمون ===== -->
+    <div id="test" class="section">
+        <div class="section-header">
+            <h2>📝 آزمون</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div id="testStart" class="question-box">
+            <div style="font-size: 60px; margin-bottom: 16px;">📝</div>
+            <h3 style="margin-bottom: 12px; color: var(--primary-dark);">آزمون ماضی و مضارع</h3>
+            <p style="color: var(--text-light); margin-bottom: 20px;">
+                ۱۰ سوال • بدون محدودیت زمان<br>
+                نمره نهایی از ۲۰
+            </p>
+            <button class="btn-primary" onclick="startTest()">🚀 شروع آزمون</button>
+        </div>
+
+        <div id="testContent" class="question-box" style="display:none;">
+            <div class="question-counter" id="testCounter">سوال ۱ از ۱۰</div>
+            <div class="question-text" id="testQuestion">...</div>
+            <div class="options" id="testOptions"></div>
+            <button class="next-btn" id="testNext" onclick="nextTestQuestion()">سوال بعدی ←</button>
+        </div>
+
+        <div id="testResult" class="result-box" style="display:none;">
+            <div class="emoji" id="testEmoji">🎉</div>
+            <h3 id="testTitle">تبریک!</h3>
+            <div class="score" id="testScore">۲۰</div>
+            <div class="message" id="testMessage">عالی بود!</div>
+            <button class="btn-primary" onclick="startTest()">🔄 آزمون مجدد</button>
+            <button class="back-btn" style="width:100%; margin-top: 10px;" onclick="showSection('home')">🔙 بازگشت به منو</button>
+        </div>
+    </div>
+
+    <!-- ===== بازی ===== -->
+    <div id="game" class="section">
+        <div class="section-header">
+            <h2>🎮 بازی</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div id="gameStart" class="question-box">
+            <div style="font-size: 60px; margin-bottom: 16px;">🎮</div>
+            <h3 style="margin-bottom: 12px; color: var(--primary-dark);">ماضی یا مضارع؟</h3>
+            <p style="color: var(--text-light); margin-bottom: 20px;">
+                یک فعل نشان داده می‌شود<br>
+                شما در ۵ ثانیه باید بگویید ماضی است یا مضارع<br>
+                هر جواب درست = ۱ امتیاز
+            </p>
+            <button class="btn-primary" onclick="startGame()">🚀 شروع بازی</button>
+        </div>
+
+        <div id="gameContent" class="game-box" style="display:none;">
+            <div class="game-score">
+                <div class="item"><span class="num" id="gameScore">0</span><span class="lbl">امتیاز</span></div>
+                <div class="item"><span class="num" id="gameStreak">0</span><span class="lbl">زنجیره</span></div>
+                <div class="item"><span class="num" id="gameBest">0</span><span class="lbl">رکورد</span></div>
+            </div>
+            <div class="game-timer" id="gameTimer">5</div>
+            <div class="game-question" id="gameQuestion">...</div>
+            <div class="game-buttons">
+                <button class="game-btn yes" onclick="answerGame('mazi')">ماضی</button>
+                <button class="game-btn no" onclick="answerGame('mozare')">مضارع</button>
+            </div>
+        </div>
+
+        <div id="gameOver" class="result-box" style="display:none;">
+            <div class="emoji">🎯</div>
+            <h3>بازی تمام شد!</h3>
+            <div class="score" id="gameFinalScore">0</div>
+            <div class="message" id="gameFinalMessage">خوب بود!</div>
+            <button class="btn-primary" onclick="startGame()">🔄 بازی مجدد</button>
+            <button class="back-btn" style="width:100%; margin-top: 10px;" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+    </div>
+
+    <!-- ===== پیشرفت ===== -->
+    <div id="progress" class="section">
+        <div class="section-header">
+            <h2>📊 پیشرفت من</h2>
+            <button class="back-btn" onclick="showSection('home')">🔙 بازگشت</button>
+        </div>
+
+        <div class="progress-card">
+            <div class="progress-row"><span class="label">تمرین‌های انجام‌شده</span><span class="value" id="statPractice">0</span></div>
+            <div class="progress-row"><span class="label">جواب‌های درست تمرین</span><span class="value" id="statPracticeCorrect">0</span></div>
+            <div class="progress-row"><span class="label">آزمون‌های انجام‌شده</span><span class="value" id="statTests">0</span></div>
+            <div class="progress-row"><span class="label">بهترین نمره آزمون</span><span class="value" id="statBestTest">0</span></div>
+            <div class="progress-row"><span class="label">رکورد بازی</span><span class="value" id="statBestGame">0</span></div>
+        </div>
+
+        <div class="progress-card">
+            <h3 style="margin-bottom: 12px; color: var(--primary-dark); font-size: 16px;">📈 دقت کلی</h3>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="overallBar" style="width: 0%;"></div>
+            </div>
+            <p style="text-align: center; margin-top: 8px; color: var(--text-light); font-size: 14px;" id="overallPercent">0%</p>
+        </div>
+
+        <button class="back-btn" style="width: 100%; margin-top: 10px;" onclick="resetProgress()">🗑️ پاک کردن پیشرفت</button>
+    </div>
+
+</div>
+
+<script src="voice.js"></script>
+<script>
+// ============================================================
+//  STATE
+// ============================================================
+let state = {
+    practiceIndex: 0,
+    practiceCorrect: 0,
+    practiceAnswered: false,
+    testIndex: 0,
+    testScore: 0,
+    testQuestions: [],
+    testAnswered: false,
+    gameRunning: false,
+    gameScore: 0,
+    gameStreak: 0,
+    gameTimer: null,
+    gameTimeLeft: 5,
+    gameCurrent: null,
+    gameBest: 0
+};
+
+// ============================================================
+//  ناوبری
+// ============================================================
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+
+    if (id === 'practice') startPractice();
+    if (id === 'progress') loadProgress();
+    if (id === 'test') {
+        document.getElementById('testStart').style.display = 'block';
+        document.getElementById('testContent').style.display = 'none';
+        document.getElementById('testResult').style.display = 'none';
+    }
+    if (id === 'game') {
+        document.getElementById('gameStart').style.display = 'block';
+        document.getElementById('gameContent').style.display = 'none';
+        document.getElementById('gameOver').style.display = 'none';
+    }
+    if (id === 'lesson') {
+        initPronounGrid();
+    }
+}
+
+function showLessonTab(id, btn) {
+    document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const allTabs = ['sarf-chist', 'mazi', 'mozare', 'sakht-mazi', 'sakht-mozare', 'comparison'];
+    allTabs.forEach(x => {
+        document.getElementById(x).style.display = (x === id) ? 'block' : 'none';
+    });
+}
+
+// ============================================================
+//  بخش تعاملی صرف
+// ============================================================
+const INTERACTIVE_PRONOUNS = [
+    { p: 'هُوَ', verb: 'كَتَبَ', meaning: 'او نوشت' },
+    { p: 'هِيَ', verb: 'كَتَبَتْ', meaning: 'او (مؤنث) نوشت' },
+    { p: 'أَنْتَ', verb: 'كَتَبْتَ', meaning: 'تو نوشتی' },
+    { p: 'أَنْتِ', verb: 'كَتَبْتِ', meaning: 'تو (مؤنث) نوشتی' },
+    { p: 'أَنَا', verb: 'كَتَبْتُ', meaning: 'من نوشتم' },
+    { p: 'نَحْنُ', verb: 'كَتَبْنَا', meaning: 'ما نوشتیم' },
+    { p: 'هُمْ', verb: 'كَتَبُوا', meaning: 'آنها نوشتند' },
+    { p: 'هُنَّ', verb: 'كَتَبْنَ', meaning: 'آنها (مؤنث) نوشتند' },
+    { p: 'أَنْتُمْ', verb: 'كَتَبْتُمْ', meaning: 'شما نوشتید' },
+    { p: 'أَنْتُنَّ', verb: 'كَتَبْتُنَّ', meaning: 'شما (مؤنث) نوشتید' }
+];
+
+function initPronounGrid() {
+    const grid = document.getElementById('pronounGrid');
+    if (!grid || grid.children.length > 0) return;
+
+    INTERACTIVE_PRONOUNS.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'pronoun-btn';
+        btn.innerText = item.p;
+        btn.onclick = () => selectPronoun(index, btn);
+        grid.appendChild(btn);
+    });
+}
+
+function selectPronoun(index, btn) {
+    document.querySelectorAll('.pronoun-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const item = INTERACTIVE_PRONOUNS[index];
+    const verbEl = document.getElementById('ivVerb');
+    const pronounEl = document.getElementById('ivPronoun');
+    const meaningEl = document.getElementById('ivMeaning');
+
+    pronounEl.innerText = item.p;
+    verbEl.innerText = item.verb;
+    meaningEl.innerText = item.meaning;
+
+    verbEl.classList.remove('animate');
+    void verbEl.offsetWidth;
+    verbEl.classList.add('animate');
+}
+
+// ============================================================
+//  فعل‌ساز
+// ============================================================
+const PRONOUNS = [
+    { p: 'هُوَ', maziSuffix: '', mozarePrefix: 'يـ', mozareSuffix: '', meaning: 'او' },
+    { p: 'هِيَ', maziSuffix: 'َتْ', mozarePrefix: 'تـ', mozareSuffix: '', meaning: 'او (مؤنث)' },
+    { p: 'أَنْتَ', maziSuffix: 'ْتَ', mozarePrefix: 'تـ', mozareSuffix: '', meaning: 'تو' },
+    { p: 'أَنْتِ', maziSuffix: 'ْتِ', mozarePrefix: 'تـ', mozareSuffix: 'ِينَ', meaning: 'تو (مؤنث)' },
+    { p: 'أَنَا', maziSuffix: 'ْتُ', mozarePrefix: 'أَ', mozareSuffix: '', meaning: 'من' },
+    { p: 'نَحْنُ', maziSuffix: 'ْنَا', mozarePrefix: 'نـ', mozareSuffix: '', meaning: 'ما' },
+    { p: 'هُمْ', maziSuffix: 'ُوا', mozarePrefix: 'يـ', mozareSuffix: 'ُونَ', meaning: 'آنها' },
+    { p: 'هُنَّ', maziSuffix: 'ْنَ', mozarePrefix: 'يـ', mozareSuffix: 'ْنَ', meaning: 'آنها (مؤنث)' },
+    { p: 'أَنْتُمْ', maziSuffix: 'ْتُمْ', mozarePrefix: 'تـ', mozareSuffix: 'ُونَ', meaning: 'شما' },
+    { p: 'أَنْتُنَّ', maziSuffix: 'ْتُنَّ', mozarePrefix: 'تـ', mozareSuffix: 'ْنَ', meaning: 'شما (مؤنث)' }
+];
+
+function buildVerb() {
+    const input = document.getElementById('rootInput').value.trim();
+    if (!input) {
+        alert('لطفاً ریشه فعل را وارد کن!');
+        return;
+    }
+
+    let letters = input.replace(/\s+/g, '').split('');
+    if (letters.length !== 3) {
+        alert('ریشه فعل باید ۳ حرف باشد!');
+        return;
+    }
+
+    const [fa, ain, lam] = letters;
+
+    const maziHe = fa + 'َ' + ain + 'َ' + lam + 'َ';
+    const mozareHe = 'يَ' + fa + 'ْ' + ain + 'ُ' + lam + 'ُ';
+
+    document.getElementById('bMaziHe').innerText = maziHe;
+    document.getElementById('bMozareHe').innerText = mozareHe;
+
+    let maziTableHTML = '<thead><tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr></thead><tbody>';
+    PRONOUNS.forEach(p => {
+        const verb = maziHe.replace(/َ$/, '') + p.maziSuffix;
+        maziTableHTML += `<tr><td>${p.p}</td><td class="ar">${verb}</td><td>${p.meaning} نوشت</td></tr>`;
+    });
+    maziTableHTML += '</tbody>';
+    document.getElementById('bMaziTable').innerHTML = maziTableHTML;
+
+    let mozareTableHTML = '<thead><tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr></thead><tbody>';
+    PRONOUNS.forEach(p => {
+        const verb = p.mozarePrefix + fa + 'ْ' + ain + 'ُ' + lam + p.mozareSuffix;
+        mozareTableHTML += `<tr><td>${p.p}</td><td class="ar">${verb}</td><td>${p.meaning} می‌نویسد</td></tr>`;
+    });
+    mozareTableHTML += '</tbody>';
+    document.getElementById('bMozareTable').innerHTML = mozareTableHTML;
+
+    document.getElementById('builderResult').classList.add('show');
+}
+
+// ============================================================
+//  بانک سوالات
+// ============================================================
+const QUESTIONS = [
+    { q: 'فعل «كَتَبَ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 0 },
+    { q: 'فعل «يَكْتُبُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 1 },
+    { q: 'فعل «ذَهَبَ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 0 },
+    { q: 'فعل «يَذْهَبُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 1 },
+    { q: 'فعل «كَتَبْتُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 0 },
+    { q: 'فعل «أَكْتُبُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 1 },
+    { q: 'فعل «سَمِعَ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 0 },
+    { q: 'فعل «يَسْمَعُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 1 },
+    { q: 'ترجمه «او نوشت» کدام است؟', opts: ['يَكْتُبُ', 'كَتَبَ', 'كَتَبَتْ', 'أَكْتُبُ'], correct: 1 },
+    { q: 'ترجمه «می‌نویسد» کدام است؟', opts: ['كَتَبَ', 'يَكْتُبُ', 'كَتَبْتُ', 'نَكْتُبُ'], correct: 1 },
+    { q: 'فعل «نَكْتُبُ» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 1 },
+    { q: 'فعل «كَتَبْنَا» ماضی است یا مضارع؟', opts: ['ماضی', 'مضارع'], correct: 0 },
+    { q: 'نشانه فعل مضارع کدام است؟', opts: ['حروف «أ، ن، ت، ي» در ابتدا', 'حرف «ت» در انتها', 'وزن فَعَلَ', 'قبول «نا»'], correct: 0 },
+    { q: 'نشانه فعل ماضی کدام است؟', opts: ['حروف «ي، ت» در ابتدا', 'وزن يَفْعُلُ', 'قبول «ت، ن، ا، و»', 'وزن أَفْعَلُ'], correct: 2 },
+    { q: 'ترجمه «آنها (مذکر) نوشتند» کدام است؟', opts: ['يَكْتُبُونَ', 'كَتَبُوا', 'تَكْتُبُ', 'كَتَبْنَ'], correct: 1 },
+    { q: 'ترجمه «ما می‌نویسیم» کدام است؟', opts: ['كَتَبْنَا', 'نَكْتُبُ', 'يَكْتُبُونَ', 'أَكْتُبُ'], correct: 1 },
+    { q: 'فعل «تَكْتُبِينَ» برای کدام ضمیر است؟', opts: ['أَنْتَ', 'أَنْتِ', 'هِيَ', 'أَنَا'], correct: 1 },
+    { q: 'فعل «يَكْتُبْنَ» برای کدام ضمیر است؟', opts: ['هُمْ', 'هُنَّ', 'أَنْتُنَّ', 'نَحْنُ'], correct: 1 },
+    { q: 'فعل «كَتَبْتِ» برای کدام ضمیر است؟', opts: ['أَنْتَ', 'أَنْتِ', 'هِيَ', 'أَنَا'], correct: 1 },
+    { q: 'فعل «أَكْتُبُ» برای کدام ضمیر است؟', opts: ['أَنَا', 'نَحْنُ', 'هُوَ', 'أَنْتَ'], correct: 0 }
+];
+
+const GAME_QUESTIONS = [
+    { word: 'كَتَبَ', answer: 'mazi' },
+    { word: 'يَكْتُبُ', answer: 'mozare' },
+    { word: 'ذَهَبَ', answer: 'mazi' },
+    { word: 'يَذْهَبُ', answer: 'mozare' },
+    { word: 'سَمِعَ', answer: 'mazi' },
+    { word: 'يَسْمَعُ', answer: 'mozare' },
+    { word: 'كَتَبْتُ', answer: 'mazi' },
+    { word: 'أَكْتُبُ', answer: 'mozare' },
+    { word: 'نَكْتُبُ', answer: 'mozare' },
+    { word: 'كَتَبْنَا', answer: 'mazi' },
+    { word: 'يَقْرَأُ', answer: 'mozare' },
+    { word: 'قَرَأَ', answer: 'mazi' },
+    { word: 'تَنْظُرُ', answer: 'mozare' },
+    { word: 'نَظَرَ', answer: 'mazi' },
+    { word: 'يَلْعَبُ', answer: 'mozare' },
+    { word: 'لَعِبَ', answer: 'mazi' },
+    { word: 'تَكْتُبِينَ', answer: 'mozare' },
+    { word: 'كَتَبْتِ', answer: 'mazi' },
+    { word: 'نَذْهَبُ', answer: 'mozare' },
+    { word: 'ذَهَبُوا', answer: 'mazi' }
+];
+
+// ============================================================
+//  تمرین
+// ============================================================
+function startPractice() {
+    state.practiceIndex = 0;
+    state.practiceCorrect = 0;
+    state.practiceAnswered = false;
+    document.getElementById('practiceNext').innerText = 'سوال بعدی ←';
+    document.getElementById('practiceNext').onclick = nextPractice;
+    showPracticeQuestion();
+}
+
+function showPracticeQuestion() {
+    if (state.practiceIndex >= QUESTIONS.length) {
+        showPracticeResult();
+        return;
+    }
+
+    const q = QUESTIONS[state.practiceIndex];
+    document.getElementById('practiceCounter').innerText = `سوال ${state.practiceIndex + 1} از ${QUESTIONS.length}`;
+    document.getElementById('practiceQuestion').innerText = q.q;
+
+    const optsBox = document.getElementById('practiceOptions');
+    optsBox.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.innerText = opt;
+        btn.onclick = () => answerPractice(i, btn);
+        optsBox.appendChild(btn);
+    });
+
+    document.getElementById('practiceFeedback').className = 'feedback';
+    document.getElementById('practiceNext').className = 'next-btn';
+    state.practiceAnswered = false;
+}
+
+function answerPractice(index, btn) {
+    if (state.practiceAnswered) return;
+    state.practiceAnswered = true;
+
+    const q = QUESTIONS[state.practiceIndex];
+    const allOpts = document.querySelectorAll('#practiceOptions .option');
+    allOpts.forEach(b => b.disabled = true);
+
+    const feedback = document.getElementById('practiceFeedback');
+    if (index === q.correct) {
+        btn.classList.add('correct');
+        state.practiceCorrect++;
+        feedback.className = 'feedback correct show';
+        feedback.innerText = '✅ آفرین! درست بود';
+    } else {
+        btn.classList.add('wrong');
+        allOpts[q.correct].classList.add('correct');
+        feedback.className = 'feedback wrong show';
+        feedback.innerText = '❌ اشتباه بود. جواب درست: ' + q.opts[q.correct];
+    }
+
+    let stats = JSON.parse(localStorage.getItem('arabicStats') || '{}');
+    stats.practiceTotal = (stats.practiceTotal || 0) + 1;
+    if (index === q.correct) stats.practiceCorrect = (stats.practiceCorrect || 0) + 1;
+    localStorage.setItem('arabicStats', JSON.stringify(stats));
+
+    document.getElementById('practiceNext').className = 'next-btn show';
+}
+
+function nextPractice() {
+    state.practiceIndex++;
+    showPracticeQuestion();
+}
+
+function showPracticeResult() {
+    const percent = Math.round((state.practiceCorrect / QUESTIONS.length) * 100);
+    document.getElementById('practiceCounter').innerText = 'نتیجه';
+    document.getElementById('practiceQuestion').innerHTML = `
+        <div style="font-size: 48px;">🎉</div>
+        <div style="font-size: 20px; margin-top: 10px;">تمرین تمام شد!</div>
+        <div style="font-size: 32px; font-weight: 900; color: var(--primary); margin: 15px 0;">${state.practiceCorrect} از ${QUESTIONS.length}</div>
+        <div style="color: var(--text-light);">${percent}% درست</div>
+    `;
+    document.getElementById('practiceOptions').innerHTML = '';
+    document.getElementById('practiceFeedback').className = 'feedback';
+    const nextBtn = document.getElementById('practiceNext');
+    nextBtn.className = 'next-btn show';
+    nextBtn.innerText = '🔄 تمرین مجدد';
+    nextBtn.onclick = startPractice;
+}
+
+// ============================================================
+//  آزمون
+// ============================================================
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function startTest() {
+    state.testIndex = 0;
+    state.testScore = 0;
+    state.testAnswered = false;
+    state.testQuestions = shuffle(QUESTIONS).slice(0, 10);
+
+    document.getElementById('testStart').style.display = 'none';
+    document.getElementById('testResult').style.display = 'none';
+    document.getElementById('testContent').style.display = 'block';
+    document.getElementById('testNext').innerText = 'سوال بعدی ←';
+    document.getElementById('testNext').onclick = nextTestQuestion;
+
+    showTestQuestion();
+}
+
+function showTestQuestion() {
+    if (state.testIndex >= state.testQuestions.length) {
+        showTestResult();
+        return;
+    }
+
+    const q = state.testQuestions[state.testIndex];
+    document.getElementById('testCounter').innerText = `سوال ${state.testIndex + 1} از ${state.testQuestions.length}`;
+    document.getElementById('testQuestion').innerText = q.q;
+
+    const optsBox = document.getElementById('testOptions');
+    optsBox.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.innerText = opt;
+        btn.onclick = () => answerTest(i, btn);
+        optsBox.appendChild(btn);
+    });
+
+    document.getElementById('testNext').className = 'next-btn';
+    state.testAnswered = false;
+}
+
+function answerTest(index, btn) {
+    if (state.testAnswered) return;
+    state.testAnswered = true;
+
+    const q = state.testQuestions[state.testIndex];
+    const allOpts = document.querySelectorAll('#testOptions .option');
+    allOpts.forEach(b => b.disabled = true);
+
+    if (index === q.correct) {
+        state.testScore++;
+        btn.classList.add('correct');
+    } else {
+        btn.classList.add('wrong');
+        allOpts[q.correct].classList.add('correct');
+    }
+
+    document.getElementById('testNext').className = 'next-btn show';
+}
+
+function nextTestQuestion() {
+    state.testIndex++;
+    showTestQuestion();
+}
+
+function showTestResult() {
+    document.getElementById('testContent').style.display = 'none';
+    document.getElementById('testResult').style.display = 'block';
+
+    const score20 = Math.round((state.testScore / 10) * 20);
+
+    let emoji = '📚';
+    let title = 'تلاش بیشتر!';
+    let message = 'باید دوباره درس را مرور کنی.';
+
+    if (score20 >= 18) { emoji = '🏆'; title = 'فوق‌العاده!'; message = 'تو یک استاد فعل ماضی و مضارعی!'; }
+    else if (score20 >= 14) { emoji = '🎉'; title = 'عالی!'; message = 'خیلی خوب بلدی!'; }
+    else if (score20 >= 10) { emoji = '👍'; title = 'خوب!'; message = 'ولی می‌تونی بهتر هم بشی.'; }
+
+    document.getElementById('testEmoji').innerText = emoji;
+    document.getElementById('testTitle').innerText = title;
+    document.getElementById('testScore').innerText = score20;
+    document.getElementById('testMessage').innerText = message + ` (${state.testScore} از ۱۰ درست)`;
+
+    let stats = JSON.parse(localStorage.getItem('arabicStats') || '{}');
+    stats.tests = (stats.tests || 0) + 1;
+    if (score20 > (stats.bestTest || 0)) stats.bestTest = score20;
+    localStorage.setItem('arabicStats', JSON.stringify(stats));
+}
+
+// ============================================================
+//  بازی
+// ============================================================
+function startGame() {
+    state.gameRunning = true;
+    state.gameScore = 0;
+    state.gameStreak = 0;
+    state.gameBest = JSON.parse(localStorage.getItem('arabicStats') || '{}').bestGame || 0;
+
+    document.getElementById('gameStart').style.display = 'none';
+    document.getElementById('gameOver').style.display = 'none';
+    document.getElementById('gameContent').style.display = 'block';
+
+    updateGameUI();
+    nextGameQuestion();
+}
+
+function nextGameQuestion() {
+    if (!state.gameRunning) return;
+
+    state.gameCurrent = GAME_QUESTIONS[Math.floor(Math.random() * GAME_QUESTIONS.length)];
+    document.getElementById('gameQuestion').innerText = state.gameCurrent.word;
+
+    state.gameTimeLeft = 5;
+    document.getElementById('gameTimer').innerText = state.gameTimeLeft;
+    document.getElementById('gameTimer').className = 'game-timer';
+
+    clearInterval(state.gameTimer);
+    state.gameTimer = setInterval(() => {
+        state.gameTimeLeft--;
+        document.getElementById('gameTimer').innerText = state.gameTimeLeft;
+
+        if (state.gameTimeLeft <= 2) {
+            document.getElementById('gameTimer').className = 'game-timer warning';
+        }
+
+        if (state.gameTimeLeft <= 0) {
+            clearInterval(state.gameTimer);
+            gameOver();
+        }
+    }, 1000);
+}
+
+function answerGame(answer) {
+    if (!state.gameRunning) return;
+    clearInterval(state.gameTimer);
+
+    if (answer === state.gameCurrent.answer) {
+        state.gameScore++;
+        state.gameStreak++;
+        updateGameUI();
+        nextGameQuestion();
+    } else {
+        gameOver();
+    }
+}
+
+function gameOver() {
+    state.gameRunning = false;
+    clearInterval(state.gameTimer);
+
+    if (state.gameScore > state.gameBest) {
+        state.gameBest = state.gameScore;
+        let stats = JSON.parse(localStorage.getItem('arabicStats') || '{}');
+        stats.bestGame = state.gameBest;
+        localStorage.setItem('arabicStats', JSON.stringify(stats));
+    }
+
+    document.getElementById('gameContent').style.display = 'none';
+    document.getElementById('gameOver').style.display = 'block';
+    document.getElementById('gameFinalScore').innerText = state.gameScore;
+
+    let msg = 'می‌تونی بهتر بشی!';
+    if (state.gameScore >= 20) msg = 'فوق‌العاده بود! 🏆';
+    else if (state.gameScore >= 10) msg = 'عالی بود! 🎉';
+    else if (state.gameScore >= 5) msg = 'خوب بود! 👍';
+
+    document.getElementById('gameFinalMessage').innerText = msg;
+}
+
+function updateGameUI() {
+    document.getElementById('gameScore').innerText = state.gameScore;
+    document.getElementById('gameStreak').innerText = state.gameStreak;
+    document.getElementById('gameBest').innerText = state.gameBest;
+}
+
+// ============================================================
+//  پیشرفت
+// ============================================================
+function loadProgress() {
+    const stats = JSON.parse(localStorage.getItem('arabicStats') || '{}');
+
+    document.getElementById('statPractice').innerText = stats.practiceTotal || 0;
+    document.getElementById('statPracticeCorrect').innerText = stats.practiceCorrect || 0;
+    document.getElementById('statTests').innerText = stats.tests || 0;
+    document.getElementById('statBestTest').innerText = (stats.bestTest || 0) + ' از ۲۰';
+    document.getElementById('statBestGame').innerText = stats.bestGame || 0;
+
+    const total = stats.practiceTotal || 0;
+    const correct = stats.practiceCorrect || 0;
+    const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+    document.getElementById('overallBar').style.width = percent + '%';
+    document.getElementById('overallPercent').innerText = percent + '%';
+}
+
+function resetProgress() {
+    if (!confirm('همه آمار پاک شود؟')) return;
+    localStorage.removeItem('arabicStats');
+    loadProgress();
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    showSection('home');
+});
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./sw.js')
+                .then(function(reg) {
+                    console.log('Service Worker ثبت شد');
+                })
+                .catch(function(err) {
+                    console.log('خطا در SW:', err);
+                });
+        });
+    }
+</script>
+</body>
+</html>
