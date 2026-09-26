@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>همیار دانش‌آموز | ماضی و مضارع</title>
 <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6366f1">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -31,6 +32,49 @@
     }
 
     .container { max-width: 800px; margin: 0 auto; padding: 16px; }
+
+    /* ===== نوار نصب PWA ===== */
+    .install-bar {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        padding: 8px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+        display: none;
+        margin-bottom: 12px;
+        border-radius: 12px;
+    }
+
+    .install-bar.show {
+        display: block;
+    }
+
+    #installBtn {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+    #installBtn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+    }
+
+    #installBtn:active {
+        transform: scale(0.97);
+    }
 
     .header {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -167,7 +211,6 @@
     }
 
     .lesson-content p { margin-bottom: 12px; font-size: 15px; color: var(--text); }
-
     .lesson-content ol, .lesson-content ul { padding-right: 22px; margin-bottom: 12px; }
     .lesson-content li { margin-bottom: 6px; font-size: 15px; }
 
@@ -255,7 +298,6 @@
         font-size: 14px;
     }
 
-    /* ===== بخش تعاملی صرف ===== */
     .pronoun-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -277,11 +319,7 @@
         text-align: center;
     }
 
-    .pronoun-btn:hover {
-        border-color: var(--primary);
-        background: rgba(99, 102, 241, 0.05);
-    }
-
+    .pronoun-btn:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
     .pronoun-btn.active {
         background: var(--primary);
         color: white;
@@ -302,31 +340,10 @@
         justify-content: center;
     }
 
-    .interactive-verb .label {
-        font-size: 13px;
-        color: var(--text-light);
-        margin-bottom: 6px;
-    }
-
-    .interactive-verb .verb {
-        font-size: 36px;
-        font-weight: 900;
-        color: var(--primary-dark);
-        margin: 8px 0;
-        transition: 0.3s;
-    }
-
-    .interactive-verb .meaning {
-        font-size: 15px;
-        color: var(--text-light);
-    }
-
-    .interactive-verb .pronoun-label {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 4px;
-    }
+    .interactive-verb .label { font-size: 13px; color: var(--text-light); margin-bottom: 6px; }
+    .interactive-verb .verb { font-size: 36px; font-weight: 900; color: var(--primary-dark); margin: 8px 0; transition: 0.3s; }
+    .interactive-verb .meaning { font-size: 15px; color: var(--text-light); }
+    .interactive-verb .pronoun-label { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
 
     @keyframes popIn {
         0% { transform: scale(0.9); opacity: 0.5; }
@@ -334,11 +351,8 @@
         100% { transform: scale(1); opacity: 1; }
     }
 
-    .interactive-verb .verb.animate {
-        animation: popIn 0.3s ease;
-    }
+    .interactive-verb .verb.animate { animation: popIn 0.3s ease; }
 
-    /* ===== ابزار فعل‌ساز ===== */
     .builder-box {
         background: var(--card);
         border-radius: 16px;
@@ -347,20 +361,9 @@
         margin-bottom: 16px;
     }
 
-    .builder-box h3 {
-        color: var(--primary-dark);
-        margin-bottom: 15px;
-        font-size: 18px;
-        text-align: center;
-    }
+    .builder-box h3 { color: var(--primary-dark); margin-bottom: 15px; font-size: 18px; text-align: center; }
 
-    .builder-input {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 12px;
-        direction: ltr;
-        flex-direction: row;
-    }
+    .builder-input { display: flex; gap: 8px; margin-bottom: 12px; direction: ltr; flex-direction: row; }
 
     .builder-input input {
         flex: 1;
@@ -409,7 +412,6 @@
     .builder-verb .verb { font-size: 28px; font-weight: 900; color: var(--primary-dark); }
     .builder-verb .meaning { font-size: 14px; color: var(--text-light); margin-top: 4px; }
 
-    /* ===== تمرین ===== */
     .question-box {
         background: var(--card);
         border-radius: 16px;
@@ -593,6 +595,10 @@
 
 <div class="container">
 
+    <div class="install-bar" id="installBar">
+        <button id="installBtn">📲 نصب برنامه روی گوشی</button>
+    </div>
+
     <div class="header">
         <h1>📚 همیار دانش‌آموز</h1>
         <p>آموزش ماضی و مضارع عربی</p>
@@ -650,12 +656,10 @@
             <button class="lesson-tab" onclick="showLessonTab('comparison', this)">مقایسه</button>
         </div>
 
-        <!-- ===== صرف چیست؟ ===== -->
+        <!-- صرف چیست؟ -->
         <div id="sarf-chist" class="lesson-content">
             <h3>🔑 صرف چیست؟</h3>
-
             <p><strong>صرف</strong> یعنی <strong>تغییر شکل فعل بر اساس ضمیر</strong> (فاعل).</p>
-
             <p>یعنی وقتی فاعل (انجام‌دهنده) عوض می‌شود، شکل فعل هم عوض می‌شود.</p>
 
             <h4>📝 مثال در فارسی:</h4>
@@ -679,8 +683,6 @@
                 <span class="arabic">كَتَبُوا</span> = آنها نوشتند
             </div>
 
-            <p>در عربی هم ریشه «ک ت ب» ثابت است، ولی <strong>پسوندها</strong> عوض می‌شوند.</p>
-
             <h4>🎮 امتحان کن:</h4>
             <p>روی هر ضمیر بزن تا شکل فعل را ببینی:</p>
 
@@ -702,14 +704,13 @@
 
             <div class="highlight-box">
                 <strong>⚠️ اشتباه رایج:</strong><br>
-                ❌ <span class="arabic">هُوَ كَتَبْتُ</span> (او من نوشتم) — غلط<br>
-                ✅ <span class="arabic">هُوَ كَتَبَ</span> (او نوشت) — درست
+                ❌ <span class="arabic">هُوَ كَتَبْتُ</span> — غلط<br>
+                ✅ <span class="arabic">هُوَ كَتَبَ</span> — درست
             </div>
 
             <div class="example-box">
-                <strong>💡 خلاصه یک‌خطی:</strong><br>
-                <strong>صرف = تغییر شکل فعل بر اساس ضمیر</strong><br>
-                یک فعل، برای هر ضمیر، یک شکل دارد.
+                <strong>💡 خلاصه:</strong><br>
+                <strong>صرف = تغییر شکل فعل بر اساس ضمیر</strong>
             </div>
         </div>
 
@@ -717,22 +718,17 @@
         <div id="mazi" class="lesson-content" style="display:none;">
             <h3>🔵 فعل ماضی (گذشته)</h3>
             <p>فعل ماضی به کاری اشاره دارد که <strong>در گذشته انجام شده</strong>.</p>
-
             <div class="example-box">
                 <strong>مثال:</strong> <span class="arabic">كَتَبَ</span> = نوشت
             </div>
-
             <p><strong>نشانه‌های ماضی:</strong></p>
             <ul>
                 <li>قبول کردن «ت، ن، ا، و»</li>
                 <li>معمولاً بر وزن <span class="arabic">فَعَلَ</span></li>
             </ul>
-
-            <p><strong>صرف فعل <span class="arabic">كَتَبَ</span> (نوشتن):</strong></p>
+            <p><strong>صرف فعل <span class="arabic">كَتَبَ</span>:</strong></p>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr>
-                </thead>
+                <thead><tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr></thead>
                 <tbody>
                     <tr><td>هُوَ</td><td class="ar">كَتَبَ</td><td>او نوشت</td></tr>
                     <tr><td>هِيَ</td><td class="ar">كَتَبَتْ</td><td>او (مؤنث) نوشت</td></tr>
@@ -750,22 +746,17 @@
         <div id="mozare" class="lesson-content" style="display:none;">
             <h3>🟢 فعل مضارع (حال / آینده)</h3>
             <p>فعل مضارع به کاری اشاره دارد که <strong>الان انجام می‌شود</strong> یا <strong>در آینده انجام خواهد شد</strong>.</p>
-
             <div class="example-box">
-                <strong>مثال:</strong> <span class="arabic">يَكْتُبُ</span> = می‌نویسد / خواهد نوشت
+                <strong>مثال:</strong> <span class="arabic">يَكْتُبُ</span> = می‌نویسد
             </div>
-
             <p><strong>نشانه‌های مضارع:</strong></p>
             <ul>
                 <li>با یکی از حروف <span class="arabic">أ، ن، ت، ي</span> شروع می‌شود</li>
                 <li>معمولاً بر وزن <span class="arabic">يَفْعُلُ</span></li>
             </ul>
-
-            <p><strong>صرف فعل <span class="arabic">يَكْتُبُ</span> (می‌نویسد):</strong></p>
+            <p><strong>صرف فعل <span class="arabic">يَكْتُبُ</span>:</strong></p>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr>
-                </thead>
+                <thead><tr><th>ضمیر</th><th>صرف</th><th>معنی</th></tr></thead>
                 <tbody>
                     <tr><td>هُوَ</td><td class="ar">يَكْتُبُ</td><td>او می‌نویسد</td></tr>
                     <tr><td>هِيَ</td><td class="ar">تَكْتُبُ</td><td>او (مؤنث) می‌نویسد</td></tr>
@@ -779,7 +770,7 @@
             </table>
         </div>
 
-        <!-- ===== ساخت ماضی ===== -->
+        <!-- ساخت ماضی -->
         <div id="sakht-mazi" class="lesson-content" style="display:none;">
             <h3>🔧 روش ساخت فعل ماضی</h3>
             <p>برای ساختن فعل ماضی، این ۴ مرحله را دنبال کن:</p>
@@ -804,7 +795,6 @@
                 <span class="step-num">۲</span>
                 <span class="step-title">ریشه را در قالب «فَعَلَ» بریز</span>
                 <div class="step-desc">
-                    فاء را جای «ف»، عین را جای «ع»، لام را جای «ل» بگذار:
                     <div style="text-align: center; margin: 10px 0;">
                         <span class="arabic-big">فَعَلَ → كَتَبَ</span>
                     </div>
@@ -816,29 +806,21 @@
                 <span class="step-title">ساختار را بشناس</span>
                 <div class="step-desc">
                     <ul>
-                        <li>حرف اول: <strong>مفتوح</strong> (فتحه دارد)</li>
-                        <li>حرف دوم: <strong>مفتوح</strong> (فتحه دارد)</li>
-                        <li>حرف سوم: <strong>مفتوح</strong> (فتحه دارد)</li>
+                        <li>حرف اول: <strong>مفتوح</strong></li>
+                        <li>حرف دوم: <strong>مفتوح</strong></li>
+                        <li>حرف سوم: <strong>مفتوح</strong></li>
                     </ul>
-                    <div style="text-align: center; margin: 10px 0;">
-                        <span class="arabic-big">ك َ ت َ ب َ</span>
-                    </div>
                 </div>
             </div>
 
             <div class="step-box">
                 <span class="step-num">۴</span>
                 <span class="step-title">با ضمایر صرف کن</span>
-                <div class="step-desc">
-                    حالا پسوندهای مختلف را اضافه کن:
-                </div>
             </div>
 
             <h4>📋 جدول پسوندهای ماضی:</h4>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ضمیر</th><th>پسوند</th><th>مثال با کَتَبَ</th></tr>
-                </thead>
+                <thead><tr><th>ضمیر</th><th>پسوند</th><th>مثال</th></tr></thead>
                 <tbody>
                     <tr><td>هُوَ</td><td>—</td><td class="ar">كَتَبَ</td></tr>
                     <tr><td>هِيَ</td><td>ـتْ</td><td class="ar">كَتَبَتْ</td></tr>
@@ -851,16 +833,9 @@
                 </tbody>
             </table>
 
-            <div class="highlight-box">
-                <strong>💡 نکته طلایی:</strong><br>
-                اگر فعل ماضی سه‌حرفی سالم باشد (مثل <span class="arabic">کَتَبَ</span>)، همه حروفش فتحه دارند.
-            </div>
-
             <h4>🎯 مثال‌های دیگر:</h4>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ریشه</th><th>ماضی</th><th>معنی</th></tr>
-                </thead>
+                <thead><tr><th>ریشه</th><th>ماضی</th><th>معنی</th></tr></thead>
                 <tbody>
                     <tr><td class="ar">ذ ه ب</td><td class="ar">ذَهَبَ</td><td>رفت</td></tr>
                     <tr><td class="ar">س م ع</td><td class="ar">سَمِعَ</td><td>شنید</td></tr>
@@ -870,7 +845,7 @@
             </table>
         </div>
 
-        <!-- ===== ساخت مضارع ===== -->
+        <!-- ساخت مضارع -->
         <div id="sakht-mozare" class="lesson-content" style="display:none;">
             <h3>🔧 روش ساخت فعل مضارع</h3>
             <p>برای ساختن فعل مضارع، این ۴ مرحله را دنبال کن:</p>
@@ -879,7 +854,6 @@
                 <span class="step-num">۱</span>
                 <span class="step-title">از بن ماضی شروع کن</span>
                 <div class="step-desc">
-                    بن ماضی را در نظر بگیر:
                     <div style="text-align: center; margin: 10px 0;">
                         <span class="arabic-big">كَتَبَ</span>
                     </div>
@@ -890,7 +864,7 @@
                 <span class="step-num">۲</span>
                 <span class="step-title">حرف مضارعه را اضافه کن</span>
                 <div class="step-desc">
-                    یکی از حروف <strong>«أ، ن، ت، ي»</strong> را به اول فعل اضافه کن:
+                    یکی از حروف <strong>«أ، ن، ت، ي»</strong>:
                     <ul style="margin-top: 6px;">
                         <li><span class="arabic">أ</span> برای <strong>أَنَا</strong></li>
                         <li><span class="arabic">ن</span> برای <strong>نَحْنُ</strong></li>
@@ -904,7 +878,6 @@
                 <span class="step-num">۳</span>
                 <span class="step-title">حرکات را تنظیم کن</span>
                 <div class="step-desc">
-                    در وزن <span class="arabic">يَفْعُلُ</span>:
                     <ul>
                         <li>حرف مضارعه: <strong>مفتوح</strong></li>
                         <li>حرف اول ریشه: <strong>ساکن</strong></li>
@@ -924,9 +897,7 @@
 
             <h4>📋 جدول ساخت مضارع:</h4>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ضمیر</th><th>حرف مضارعه</th><th>پسوند</th><th>مثال</th></tr>
-                </thead>
+                <thead><tr><th>ضمیر</th><th>حرف مضارعه</th><th>پسوند</th><th>مثال</th></tr></thead>
                 <tbody>
                     <tr><td>هُوَ</td><td class="ar">يـ</td><td>—</td><td class="ar">يَكْتُبُ</td></tr>
                     <tr><td>هِيَ</td><td class="ar">تـ</td><td>—</td><td class="ar">تَكْتُبُ</td></tr>
@@ -942,16 +913,13 @@
             <div class="highlight-box">
                 <strong>💡 نکته طلایی:</strong><br>
                 <span class="arabic">كَتَبَ</span> → <span class="arabic">يَكْتُبُ</span><br>
-                فقط کافیه:<br>
                 ۱. حرف مضارعه اضافه کن<br>
                 ۲. حرف دوم را از فتحه به ضمه تغییر بده
             </div>
 
             <h4>🎯 مثال‌های دیگر:</h4>
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ماضی</th><th>مضارع (هُوَ)</th><th>معنی</th></tr>
-                </thead>
+                <thead><tr><th>ماضی</th><th>مضارع</th><th>معنی</th></tr></thead>
                 <tbody>
                     <tr><td class="ar">ذَهَبَ</td><td class="ar">يَذْهَبُ</td><td>می‌رود</td></tr>
                     <tr><td class="ar">سَمِعَ</td><td class="ar">يَسْمَعُ</td><td>می‌شنود</td></tr>
@@ -964,11 +932,8 @@
         <!-- مقایسه -->
         <div id="comparison" class="lesson-content" style="display:none;">
             <h3>⚖️ مقایسه ماضی و مضارع</h3>
-
             <table class="sarf-table">
-                <thead>
-                    <tr><th>ویژگی</th><th>ماضی</th><th>مضارع</th></tr>
-                </thead>
+                <thead><tr><th>ویژگی</th><th>ماضی</th><th>مضارع</th></tr></thead>
                 <tbody>
                     <tr><td><strong>زمان</strong></td><td>گذشته</td><td>حال / آینده</td></tr>
                     <tr><td><strong>نشانه</strong></td><td>قبول «ت، ن، ا، و»</td><td>شروع با «أ، ن، ت، ي»</td></tr>
@@ -979,7 +944,6 @@
 
             <div class="example-box" style="margin-top: 20px;">
                 <strong>💡 نکته طلایی:</strong><br>
-                برای تشخیص ماضی از مضارع، اول کلمه را نگاه کن:<br>
                 • اگر با <span class="arabic">ي، ت، أ، ن</span> شروع شود → <strong>مضارع</strong><br>
                 • اگر این حروف را نداشته باشد → <strong>ماضی</strong>
             </div>
@@ -1025,11 +989,6 @@
 
                 <h4 style="text-align: center; margin-top: 20px; color: var(--primary-dark);">صرف کامل مضارع</h4>
                 <table class="sarf-table" id="bMozareTable"></table>
-
-                <div class="highlight-box" style="margin-top: 16px;">
-                    <strong>⚠️ توجه:</strong> این ابزار بر اساس قواعد ساده کار می‌کند.
-                    بعضی فعل‌های خاص ممکن است صرف متفاوتی داشته باشند.
-                </div>
             </div>
         </div>
     </div>
@@ -1096,7 +1055,7 @@
             <h3 style="margin-bottom: 12px; color: var(--primary-dark);">ماضی یا مضارع؟</h3>
             <p style="color: var(--text-light); margin-bottom: 20px;">
                 یک فعل نشان داده می‌شود<br>
-                شما در ۵ ثانیه باید بگویید ماضی است یا مضارع<br>
+                در ۵ ثانیه بگو ماضی است یا مضارع<br>
                 هر جواب درست = ۱ امتیاز
             </p>
             <button class="btn-primary" onclick="startGame()">🚀 شروع بازی</button>
@@ -1155,6 +1114,7 @@
 </div>
 
 <script src="voice.js"></script>
+
 <script>
 // ============================================================
 //  STATE
@@ -1211,7 +1171,7 @@ function showLessonTab(id, btn) {
 }
 
 // ============================================================
-//  بخش تعاملی صرف
+//  صرف تعاملی
 // ============================================================
 const INTERACTIVE_PRONOUNS = [
     { p: 'هُوَ', verb: 'كَتَبَ', meaning: 'او نوشت' },
@@ -1245,12 +1205,10 @@ function selectPronoun(index, btn) {
 
     const item = INTERACTIVE_PRONOUNS[index];
     const verbEl = document.getElementById('ivVerb');
-    const pronounEl = document.getElementById('ivPronoun');
-    const meaningEl = document.getElementById('ivMeaning');
 
-    pronounEl.innerText = item.p;
+    document.getElementById('ivPronoun').innerText = item.p;
     verbEl.innerText = item.verb;
-    meaningEl.innerText = item.meaning;
+    document.getElementById('ivMeaning').innerText = item.meaning;
 
     verbEl.classList.remove('animate');
     void verbEl.offsetWidth;
@@ -1275,19 +1233,12 @@ const PRONOUNS = [
 
 function buildVerb() {
     const input = document.getElementById('rootInput').value.trim();
-    if (!input) {
-        alert('لطفاً ریشه فعل را وارد کن!');
-        return;
-    }
+    if (!input) { alert('لطفاً ریشه فعل را وارد کن!'); return; }
 
     let letters = input.replace(/\s+/g, '').split('');
-    if (letters.length !== 3) {
-        alert('ریشه فعل باید ۳ حرف باشد!');
-        return;
-    }
+    if (letters.length !== 3) { alert('ریشه فعل باید ۳ حرف باشد!'); return; }
 
     const [fa, ain, lam] = letters;
-
     const maziHe = fa + 'َ' + ain + 'َ' + lam + 'َ';
     const mozareHe = 'يَ' + fa + 'ْ' + ain + 'ُ' + lam + 'ُ';
 
@@ -1375,10 +1326,7 @@ function startPractice() {
 }
 
 function showPracticeQuestion() {
-    if (state.practiceIndex >= QUESTIONS.length) {
-        showPracticeResult();
-        return;
-    }
+    if (state.practiceIndex >= QUESTIONS.length) { showPracticeResult(); return; }
 
     const q = QUESTIONS[state.practiceIndex];
     document.getElementById('practiceCounter').innerText = `سوال ${state.practiceIndex + 1} از ${QUESTIONS.length}`;
@@ -1478,10 +1426,7 @@ function startTest() {
 }
 
 function showTestQuestion() {
-    if (state.testIndex >= state.testQuestions.length) {
-        showTestResult();
-        return;
-    }
+    if (state.testIndex >= state.testQuestions.length) { showTestResult(); return; }
 
     const q = state.testQuestions[state.testIndex];
     document.getElementById('testCounter').innerText = `سوال ${state.testIndex + 1} از ${state.testQuestions.length}`;
@@ -1646,7 +1591,7 @@ function loadProgress() {
     document.getElementById('statPracticeCorrect').innerText = stats.practiceCorrect || 0;
     document.getElementById('statTests').innerText = stats.tests || 0;
     document.getElementById('statBestTest').innerText = (stats.bestTest || 0) + ' از ۲۰';
-    document.getElementById('statBestGame').innerText = stats.bestGame || 0;
+    document.getElementById('statBestGame').innerText = stats.gameBest || 0;
 
     const total = stats.practiceTotal || 0;
     const correct = stats.practiceCorrect || 0;
@@ -1663,24 +1608,56 @@ function resetProgress() {
 }
 
 // ============================================================
+//  نصب PWA
+// ============================================================
+var deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    var installBar = document.getElementById('installBar');
+    if (installBar) installBar.classList.add('show');
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    var installBtn = document.getElementById('installBtn');
+    if (!installBtn) return;
+
+    installBtn.addEventListener('click', function() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') {
+                    console.log('✅ کاربر نصب کرد');
+                }
+                deferredPrompt = null;
+                var installBar = document.getElementById('installBar');
+                if (installBar) installBar.classList.remove('show');
+            });
+        } else {
+            alert('برای نصب: از منوی Chrome گزینه "Add to Home Screen" یا "Install app" را انتخاب کنید.');
+        }
+    });
+});
+
+// ============================================================
+//  Service Worker
+// ============================================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+            .then(function(reg) { console.log('SW ثبت شد'); })
+            .catch(function(err) { console.log('خطا در SW:', err); });
+    });
+}
+
+// ============================================================
 //  INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     showSection('home');
 });
 </script>
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('./sw.js')
-                .then(function(reg) {
-                    console.log('Service Worker ثبت شد');
-                })
-                .catch(function(err) {
-                    console.log('خطا در SW:', err);
-                });
-        });
-    }
-</script>
+
 </body>
 </html>
