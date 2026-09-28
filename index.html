@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آموزش جامع افعال عربی - پایه ۷، ۸، ۹</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📚 آموزش جامع افعال عربی</h1>
+      <p class="subtitle">ماضی • مضارع • تمرین • بازی • آزمون</p>
+    </header>
+
+    <!-- منوی اصلی -->
+    <nav class="main-nav">
+      <button class="nav-btn active" data-section="conjugation">📖 صرف فعل</button>
+      <button class="nav-btn" data-section="rules">🎓 روش ساخت</button>
+      <button class="nav-btn" data-section="practice">✏️ تمرین</button>
+      <button class="nav-btn" data-section="game">🎮 بازی</button>
+      <button class="nav-btn" data-section="quiz">📝 آزمون</button>
+      <button class="nav-btn" data-section="stats">📊 پیشرفت</button>
+      <button class="nav-btn" data-section="exam">🎮 امتحان</button>
+    </nav>
+
+    <!-- ============================================
+         بخش ۱: صرف فعل
+    ============================================= -->
+    <section class="section active" id="conjugation">
+      <div class="card">
+        <h2>🔤 انتخاب فعل</h2>
+        <div class="verbs-grid" id="verbsGrid"></div>
+      </div>
+
+      <div class="card" id="conjugationSection" style="display:none;">
+        <h2 id="verbTitle"></h2>
+        <div class="tabs">
+          <button class="tab active" data-tense="madi">ماضی (گذشته)</button>
+          <button class="tab" data-tense="mozare">مضارع (حال/آینده)</button>
+        </div>
+        <div id="conjugationTable"></div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         بخش ۲: روش ساخت (با معنی فارسی)
+    ============================================= -->
+    <section class="section" id="rules">
+
+      <!-- روش ساخت ماضی -->
+      <div class="card">
+        <h2>🎓 روش ساخت فعل ماضی</h2>
+        <p class="rule-text">ریشه فعل + شناسه‌های ماضی</p>
+
+        <div class="rule-box">
+          <h3>📌 جدول شناسه‌های ماضی (۱۴ صیغه):</h3>
+          <table class="conj-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ضمیر</th>
+                <th>شناسه</th>
+                <th>مثال (كَتَبَ)</th>
+                <th>معنی فارسی</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>۱</td><td class="pronoun">هُوَ</td>
+                <td class="arabic">ـَ</td>
+                <td class="arabic">كَتَبَ</td>
+                <td class="meaning-cell">او نوشت</td>
+              </tr>
+              <tr>
+                <td>۲</td><td class="pronoun">هُمَا</td>
+                <td class="arabic">ـَا</td>
+                <td class="arabic">كَتَبَا</td>
+                <td class="meaning-cell">آن دو (مذکر) نوشتند</td>
+              </tr>
+              <tr>
+                <td>۳</td><td class="pronoun">هُمْ</td>
+                <td class="arabic">ـُوا</td>
+                <td class="arabic">كَتَبُوا</td>
+                <td class="meaning-cell">آن‌ها (مذکر) نوشتند</td>
+              </tr>
+              <tr>
+                <td>۴</td><td class="pronoun">هِيَ</td>
+                <td class="arabic">ـَتْ</td>
+                <td class="arabic">كَتَبَتْ</td>
+                <td class="meaning-cell">او (مؤنث) نوشت</td>
+              </tr>
+              <tr>
+                <td>۵</td><td class="pronoun">هُمَا (مؤنث)</td>
+                <td class="arabic">ـَتَا</td>
+                <td class="arabic">كَتَبَتَا</td>
+                <td class="meaning-cell">آن دو (مؤنث) نوشتند</td>
+              </tr>
+              <tr>
+                <td>۶</td><td class="pronoun">هُنَّ</td>
+                <td class="arabic">ـْنَ</td>
+                <td class="arabic">كَتَبْنَ</td>
+                <td class="meaning-cell">آن‌ها (مؤنث) نوشتند</td>
+              </tr>
+              <tr>
+                <td>۷</td><td class="pronoun">أَنْتَ</td>
+                <td class="arabic">ـْتَ</td>
+                <td class="arabic">كَتَبْتَ</td>
+                <td class="meaning-cell">تو (مذکر) نوشتی</td>
+              </tr>
+              <tr>
+                <td>۸</td><td class="pronoun">أَنْتُمَا (مذکر)</td>
+                <td class="arabic">ـْتُمَا</td>
+                <td class="arabic">كَتَبْتُمَا</td>
+                <td class="meaning-cell">شما دو نفر (مذکر) نوشتید</td>
+              </tr>
+              <tr>
+                <td>۹</td><td class="pronoun">أَنْتُمَا (مؤنث)</td>
+                <td class="arabic">ـْتُمَا</td>
+                <td class="arabic">كَتَبْتُمَا</td>
+                <td class="meaning-cell">شما دو نفر (مؤنث) نوشتید</td>
+              </tr>
+              <tr>
+                <td>۱۰</td><td class="pronoun">أَنْتُمْ</td>
+                <td class="arabic">ـْتُمْ</td>
+                <td class="arabic">كَتَبْتُمْ</td>
+                <td class="meaning-cell">شما (مذکر) نوشتید</td>
+              </tr>
+              <tr>
+                <td>۱۱</td><td class="pronoun">أَنْتِ</td>
+                <td class="arabic">ـْتِ</td>
+                <td class="arabic">كَتَبْتِ</td>
+                <td class="meaning-cell">تو (مؤنث) نوشتی</td>
+              </tr>
+              <tr>
+                <td>۱۲</td><td class="pronoun">أَنْتُنَّ</td>
+                <td class="arabic">ـْتُنَّ</td>
+                <td class="arabic">كَتَبْتُنَّ</td>
+                <td class="meaning-cell">شما (مؤنث) نوشتید</td>
+              </tr>
+              <tr>
+                <td>۱۳</td><td class="pronoun">أَنَا</td>
+                <td class="arabic">ـْتُ</td>
+                <td class="arabic">كَتَبْتُ</td>
+                <td class="meaning-cell">من نوشتم</td>
+              </tr>
+              <tr>
+                <td>۱۴</td><td class="pronoun">نَحْنُ</td>
+                <td class="arabic">ـْنَا</td>
+                <td class="arabic">كَتَبْنَا</td>
+                <td class="meaning-cell">ما نوشتیم</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- روش ساخت مضارع -->
+      <div class="card">
+        <h2>🎓 روش ساخت فعل مضارع</h2>
+        <p class="rule-text">
+          حرف مضارعه (أ، ت، ی، ن) + ریشه + شناسه مضارع
+        </p>
+
+        <div class="rule-box">
+          <h3>📌 حروف مضارعه (با معنی):</h3>
+          <div class="letters-grid">
+            <div class="letter-card">
+              <span class="arabic-big">أ</span>
+              <strong>أَنَا</strong>
+              <span class="letter-meaning">من می‌نویسم → أَكْتُبُ</span>
+            </div>
+            <div class="letter-card">
+              <span class="arabic-big">ت</span>
+              <strong>أَنْتَ، أَنْتِ، هِيَ</strong>
+              <span class="letter-meaning">تو / او می‌نویسی / می‌نویسد</span>
+            </div>
+            <div class="letter-card">
+              <span class="arabic-big">ی</span>
+              <strong>هُوَ، هُمْ، هُنَّ</strong>
+              <span class="letter-meaning">او / آن‌ها می‌نویسد / می‌نویسند</span>
+            </div>
+            <div class="letter-card">
+              <span class="arabic-big">ن</span>
+              <strong>نَحْنُ</strong>
+              <span class="letter-meaning">ما می‌نویسیم → نَكْتُبُ</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-box">
+          <h3>📌 جدول شناسه‌های مضارع (۱۴ صیغه):</h3>
+          <table class="conj-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ضمیر</th>
+                <th>شناسه</th>
+                <th>مثال (يَكْتُبُ)</th>
+                <th>معنی فارسی</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>۱</td><td class="pronoun">هُوَ</td>
+                <td class="arabic">ـُ</td>
+                <td class="arabic">يَكْتُبُ</td>
+                <td class="meaning-cell">او می‌نویسد</td>
+              </tr>
+              <tr>
+                <td>۲</td><td class="pronoun">هُمَا</td>
+                <td class="arabic">ـَانِ</td>
+                <td class="arabic">يَكْتُبَانِ</td>
+                <td class="meaning-cell">آن دو (مذکر) می‌نویسند</td>
+              </tr>
+              <tr>
+                <td>۳</td><td class="pronoun">هُمْ</td>
+                <td class="arabic">ـُونَ</td>
+                <td class="arabic">يَكْتُبُونَ</td>
+                <td class="meaning-cell">آن‌ها (مذکر) می‌نویسند</td>
+              </tr>
+              <tr>
+                <td>۴</td><td class="pronoun">هِيَ</td>
+                <td class="arabic">ـُ</td>
+                <td class="arabic">تَكْتُبُ</td>
+                <td class="meaning-cell">او (مؤنث) می‌نویسد</td>
+              </tr>
+              <tr>
+                <td>۵</td><td class="pronoun">هُمَا (مؤنث)</td>
+                <td class="arabic">ـَانِ</td>
+                <td class="arabic">تَكْتُبَانِ</td>
+                <td class="meaning-cell">آن دو (مؤنث) می‌نویسند</td>
+              </tr>
+              <tr>
+                <td>۶</td><td class="pronoun">هُنَّ</td>
+                <td class="arabic">ـْنَ</td>
+                <td class="arabic">يَكْتُبْنَ</td>
+                <td class="meaning-cell">آن‌ها (مؤنث) می‌نویسند</td>
+              </tr>
+              <tr>
+                <td>۷</td><td class="pronoun">أَنْتَ</td>
+                <td class="arabic">ـُ</td>
+                <td class="arabic">تَكْتُبُ</td>
+                <td class="meaning-cell">تو (مذکر) می‌نویسی</td>
+              </tr>
+              <tr>
+                <td>۸</td><td class="pronoun">أَنْتُمَا (مذکر)</td>
+                <td class="arabic">ـَانِ</td>
+                <td class="arabic">تَكْتُبَانِ</td>
+                <td class="meaning-cell">شما دو نفر (مذکر) می‌نویسید</td>
+              </tr>
+              <tr>
+                <td>۹</td><td class="pronoun">أَنْتُمَا (مؤنث)</td>
+                <td class="arabic">ـَانِ</td>
+                <td class="arabic">تَكْتُبَانِ</td>
+                <td class="meaning-cell">شما دو نفر (مؤنث) می‌نویسید</td>
+              </tr>
+              <tr>
+                <td>۱۰</td><td class="pronoun">أَنْتُمْ</td>
+                <td class="arabic">ـُونَ</td>
+                <td class="arabic">تَكْتُبُونَ</td>
+                <td class="meaning-cell">شما (مذکر) می‌نویسید</td>
+              </tr>
+              <tr>
+                <td>۱۱</td><td class="pronoun">أَنْتِ</td>
+                <td class="arabic">ـِينَ</td>
+                <td class="arabic">تَكْتُبِينَ</td>
+                <td class="meaning-cell">تو (مؤنث) می‌نویسی</td>
+              </tr>
+              <tr>
+                <td>۱۲</td><td class="pronoun">أَنْتُنَّ</td>
+                <td class="arabic">ـْنَ</td>
+                <td class="arabic">تَكْتُبْنَ</td>
+                <td class="meaning-cell">شما (مؤنث) می‌نویسید</td>
+              </tr>
+              <tr>
+                <td>۱۳</td><td class="pronoun">أَنَا</td>
+                <td class="arabic">ـُ</td>
+                <td class="arabic">أَكْتُبُ</td>
+                <td class="meaning-cell">من می‌نویسم</td>
+              </tr>
+              <tr>
+                <td>۱۴</td><td class="pronoun">نَحْنُ</td>
+                <td class="arabic">ـُ</td>
+                <td class="arabic">نَكْتُبُ</td>
+                <td class="meaning-cell">ما می‌نویسیم</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================
+         بخش ۳: تمرین
+    ============================================= -->
+    <section class="section" id="practice">
+      <div class="card">
+        <h2>✏️ تمرین: صیغه درست را انتخاب کن</h2>
+        <div id="practiceArea">
+          <p id="practiceQuestion">برای شروع، دکمه زیر را بزنید</p>
+          <div id="practiceOptions" class="options"></div>
+          <button id="nextPractice" class="btn-primary" style="display:none;">سؤال بعدی ➡️</button>
+        </div>
+        <button id="startPractice" class="btn-primary">شروع تمرین</button>
+      </div>
+    </section>
+
+    <!-- ============================================
+         بخش ۴: بازی
+    ============================================= -->
+    <section class="section" id="game">
+      <div class="card">
+        <h2>🎮 بازی: ترجمه سریع!</h2>
+        <p class="game-info">⏱️ زمان: <span id="timer">۶۰</span> ثانیه | 🏆 امتیاز: <span id="gameScore">۰</span></p>
+        <div id="gameArea">
+          <p id="gameQuestion">دکمه شروع را بزن!</p>
+          <div id="gameOptions" class="options"></div>
+        </div>
+        <button id="startGame" class="btn-primary">شروع بازی</button>
+      </div>
+    </section>
+
+    <!-- ============================================
+         بخش ۵: آزمون
+    ============================================= -->
+    <section class="section" id="quiz">
+      <div class="card">
+        <h2>📝 آزمون نهایی (۲۰ سؤال)</h2>
+        <div id="quizArea">
+          <p id="quizQuestion">برای شروع، دکمه زیر را بزنید</p>
+          <div id="quizOptions" class="options"></div>
+          <button id="nextQuestion" class="btn-primary" style="display:none;">سؤال بعدی ➡️</button>
+        </div>
+        <div class="score-box">
+          امتیاز: <span id="score">0</span> / <span id="total">0</span>
+        </div>
+        <button id="startQuiz" class="btn-primary">شروع آزمون</button>
+      </div>
+    </section>
+
+    <!-- ============================================
+         بخش ۶: آمار پیشرفت
+    ============================================= -->
+    <section class="section" id="stats">
+      <div class="card">
+        <h2>📊 آمار پیشرفت شما</h2>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon">📝</div>
+            <div class="stat-value" id="statQuizTotal">0</div>
+            <div class="stat-label">کل آزمون‌ها</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">✅</div>
+            <div class="stat-value" id="statCorrect">0</div>
+            <div class="stat-label">پاسخ صحیح</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">❌</div>
+            <div class="stat-value" id="statWrong">0</div>
+            <div class="stat-label">پاسخ غلط</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-value" id="statGameBest">0</div>
+            <div class="stat-label">رکورد بازی</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">📈</div>
+            <div class="stat-value" id="statPercent">0%</div>
+            <div class="stat-label">درصد موفقیت</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-value" id="statLevel">مبتدی</div>
+            <div class="stat-label">سطح شما</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button id="resetStats" class="btn-danger">🗑️ پاک کردن آمار</button>
+      </div>
+    </section>
+    
+    <!-- ============================================
+     بخش ۷: امتحان تعاملی (کلیک روی ضمیر)
+============================================= -->
+<section class="section" id="exam">
+  <div class="card">
+    <h2>🎮 امتحان کن:</h2>
+    <p class="exam-hint">روی هر ضمیر بزن تا شکل فعل را ببینی.</p>
+
+    <!-- انتخاب فعل و زمان -->
+    <div class="exam-controls">
+      <div class="control-group">
+        <label>فعل:</label>
+        <select id="examVerbSelect"></select>
+      </div>
+      <div class="control-group">
+        <label>زمان:</label>
+        <div class="exam-tabs">
+          <button class="exam-tab active" data-tense="madi">ماضی</button>
+          <button class="exam-tab" data-tense="mozare">مضارع</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- شبکه ضمایر -->
+    <div class="pronoun-grid" id="pronounGrid"></div>
+
+    <!-- جعبه نمایش نتیجه -->
+    <div class="exam-result" id="examResult">
+      <p class="exam-result-label">فعل برای ضمیر انتخاب‌شده</p>
+      <p class="exam-result-verb" id="examVerbDisplay">—</p>
+      <p class="exam-result-meaning" id="examMeaningDisplay"></p>
+      <p class="exam-result-hint" id="examHintDisplay">یک ضمیر انتخاب کن</p>
+    </div>
+  </div>
+</section>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="voice.js"></script>
+</body>
+</html>
